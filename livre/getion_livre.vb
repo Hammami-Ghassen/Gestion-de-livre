@@ -6,14 +6,18 @@
     End Structure
     Public Bibliotheque(100) As Livre
     Dim nbLivres As Integer = 0
-    Function AjouterLivre(l As Livre) As Boolean
-        If nbLivres < 100 And Not IlExiste(l.ISBN) Then
+
+    Function AjouterLivre(l As Livre) As Integer
+        If nbLivres < Bibliotheque.Length And Not IlExiste(l.ISBN) Then
             Bibliotheque(nbLivres) = l
             nbLivres += 1
-            Return True
-        Else
-            Return False
+            Return 0
+        ElseIf nbLivres >= Bibliotheque.Length Then
+            Return 1
+        ElseIf IlExiste(l.ISBN) Then
+            Return 2
         End If
+
     End Function
     Sub AfficherLivres(lstISBN As ListBox, lstTitre As ListBox, lstAuteur As ListBox)
         For i As Integer = 0 To nbLivres - 1
